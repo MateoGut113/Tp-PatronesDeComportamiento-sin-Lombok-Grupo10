@@ -7,6 +7,10 @@ import Template_Method.ReporteCurso;
 import entidades.*;
 import iterador.*;
 import strategy.*;
+import Observer.*;
+import Observer.Curso_o;
+
+
 
 import java.util.Arrays;
 
@@ -89,7 +93,33 @@ public class Main {
 
         //-----PATRON MEMENTO-----
 
-        //-----PATRON OBSERVER-----
+//-----PATRON OBSERVER-----
+        System.out.println("\n--> PROBAMOS PATRON OBSERVER:");
+
+// Creamos curso real (entidad)
+        entidades.Curso cursoPOO = new entidades.Curso("Programación Orientada a Objetos");
+
+// Creamos Subject (Curso_o) asociado a ese curso
+        Observer.Curso_o cursoObservable = new Curso_o(cursoPOO);
+
+// Creamos alumnos de entidades
+        entidades.Alumno alumno1Ent = new entidades.Alumno(null, "Mario", "Gomez", 12345, 1001);
+        entidades.Alumno alumno2Ent = new entidades.Alumno(null, "Lucas", "Perez", 67890, 1002);
+
+// Creamos observadores que envuelven a los alumnos de entidades
+        Observer.Alumno obs1 = new Observer.Alumno(alumno1Ent);
+        Observer.Alumno obs2 = new Observer.Alumno(alumno2Ent);
+
+// Suscribimos los observadores (no los alumnos de entidades directamente)
+        cursoObservable.agregarObservador(obs1);
+        cursoObservable.agregarObservador(obs2);
+
+
+// Disparamos notificaciones
+        cursoObservable.notificar("Se cambió el horario a las 10:00 AM.");
+        cursoObservable.notificar("Nuevo aviso: examen parcial la próxima semana.");
+
+
 
         //-----PATRON STATE-----
 
