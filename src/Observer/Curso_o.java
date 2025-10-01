@@ -1,13 +1,14 @@
 package Observer;
 
+import entidades.Curso;   // <-- importar la clase de entidades
 import java.util.ArrayList;
 import java.util.List;
 
 public class Curso_o {
-    private Curso_o curso;  // usamos la clase Curso del paquete entidades
+    private Curso curso;  // ahora sí es un Curso real de entidades
     private List<Observer> observadores = new ArrayList<>();
 
-    public Curso_o(Curso_o curso) {
+    public Curso_o(Curso curso) {   // recibe un entidades.Curso
         this.curso = curso;
     }
 
@@ -32,7 +33,7 @@ public class Curso_o {
         return curso.getNombre();
     }
 
-    public Curso_o getCurso() {
+    public Curso getCurso() {
         return curso;
     }
 }
