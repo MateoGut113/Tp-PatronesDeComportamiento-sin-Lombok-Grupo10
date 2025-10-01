@@ -8,6 +8,8 @@ import strategy.CalcularNota;
 import java.util.ArrayList;
 import java.util.List;
 
+
+//ESTE LO HIZO CON CHATGPT (Mateo , Alee)
 public class Alumno extends Usuario {
     private String nombre;
     private String apellido;
@@ -87,6 +89,22 @@ public class Alumno extends Usuario {
         }
     }
     // Fin Patron Iterator - Strategy
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public Integer getDni() {
+        return dni;
+    }
+    public Integer getLegajo() {
+        return legajo;
+    }
+
 
 }
 
