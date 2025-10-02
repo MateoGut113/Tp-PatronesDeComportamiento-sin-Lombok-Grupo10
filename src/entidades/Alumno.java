@@ -2,6 +2,7 @@ package entidades;
 
 import Mediator.ChatMediator;
 import Mediator.Usuario;
+import Memento.Examen;
 import iterador.CursoIterator;
 import strategy.CalcularNota;
 
@@ -11,10 +12,11 @@ import java.util.List;
 
 //ESTE LO HIZO CON CHATGPT (Mateo , Alee)
 public class Alumno extends Usuario {
-    private String nombre;
     private String apellido;
     private Integer dni;
     private Integer legajo;
+    private String curso;
+    private Examen examen;
 
     private List<Integer> notas = new ArrayList<>();
     private List<Curso> cursosInscriptos = new ArrayList<>();
@@ -22,12 +24,58 @@ public class Alumno extends Usuario {
 
 
     public Alumno(ChatMediator mediator, String nombre, String apellido, Integer dni, Integer legajo) {
-        super(mediator, nombre); //Patron Mediator
+        super(nombre); //Patron Mediator
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
         this.legajo = legajo;
     }
+
+    //
+
+    //constructor memento
+    public Alumno (String nombre, Examen examen ){
+        super(nombre);
+        this.examen=examen;
+        this.nombre= nombre;
+    }
+    // metodos memento
+
+    public void ResponderExamen(String respuesta){
+        this.examen.responderExamen(respuesta);
+
+    }
+    public void guardarExamen (){
+        this.examen.save();
+
+    }
+    public void deshacerRespuesta(){
+        this.examen.restore();
+    }
+
+//
+
+    // Constructor Patron command
+    public Alumno(String nombre) {
+        super(nombre);
+        this.nombre = nombre;
+    }
+
+
+        //Metodos
+
+    public void abandonarCurso(String curso)  {
+        System.out.println("El alumno "+nombre+"abandono el curso "+curso); }
+    public void inscribirseCurso(String curso){
+        System.out.println("El alumno "+nombre+"se inscribio a la materia "+curso); }
+    public void solicitarCertificado (String curso){
+        System.out.println("El alumno "+nombre+" solicito un Cetificado de alumno Regular");}
+    //
+     //
+
+
+
+
 
     //Patron Mediator
     @Override

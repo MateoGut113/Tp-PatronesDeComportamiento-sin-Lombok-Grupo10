@@ -9,7 +9,7 @@ public class Profesor extends Usuario implements Handler{
     private Handler next; // Patron Chain of Responsibility
 
     public Profesor(ChatMediator mediator, String nombre) {
-        super(mediator, nombre);
+        super(nombre);
     }
 
     //Patron Mediator

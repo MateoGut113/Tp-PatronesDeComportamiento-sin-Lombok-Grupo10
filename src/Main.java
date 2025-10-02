@@ -1,10 +1,18 @@
 import Chain_of_Responsibility.*;
+import Command.Command;
+import Command.Invoker;
+import Command.implementacion.AbandonarCursoCommand;
+import Command.implementacion.InscribirseCursoCommand;
+import Command.implementacion.SolicitarCertificadoCommand;
 import Mediator.*;
+import Memento.Examen;
+import Memento.Historial;
 import State.Inscripcion;
 import Template_Method.ReporteAcademico;
 import Template_Method.ReporteAlumno;
 import Template_Method.ReporteCurso;
 import entidades.*;
+import entidades.Alumno;
 import iterador.*;
 import strategy.*;
 import Observer.*;
@@ -17,6 +25,13 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
+
+
+
+
+
+
+
 //        //-----PATRON CHAIN OF RESPONSIBILITY -----
 //        System.out.println("\n--> PROBAMOS PATRON CHAIN OF RESPONSIBILITY:");
 //        Handler basico = new Asistente();
@@ -39,6 +54,25 @@ public class Main {
 //        basico.handle(solicitud4);
 //
 //        //-----PATRON COMMAND-----
+        Alumno alumno = new Alumno("Carlos");
+
+        // Creamos el invocador
+        Invoker invoker = new Invoker();
+
+        // Inscribirse en un curso
+        Command inscribirse = new InscribirseCursoCommand(alumno, "Programación");
+        invoker.setCommand(inscribirse);
+        invoker.ejecutarComando();
+
+        // Abandonar un curso
+        Command abandonar = new AbandonarCursoCommand(alumno, "Matemáticas");
+        invoker.setCommand(abandonar);
+        invoker.ejecutarComando();
+
+        // Solicitar un certificado
+        Command certificado = new SolicitarCertificadoCommand(alumno, "Bases de Datos");
+        invoker.setCommand(certificado);
+        invoker.ejecutarComando();
 //
 //        //-----PATRON ITERATOR and PATRON STRATEGY-----
 //        System.out.println("\n--> PROBAMOS PATRON ITERATOR and PATRON STRATEGY:");
@@ -92,32 +126,56 @@ public class Main {
 //        alumnoMediator2.enviar("Muy bien, gracias.");
 
         //-----PATRON MEMENTO-----
+        Historial historial = new Historial();
+        Examen examen = new Examen(historial);
+
+        Alumno alumno1 = new Alumno("juan",examen);
+
+        alumno1.ResponderExamen("pregunta 1 : Respuesta A ");
+        alumno1.guardarExamen();
+
+        alumno1.ResponderExamen("Pragunta 2 : Respuesta B");
+        alumno1.guardarExamen();
+
+        alumno1.ResponderExamen("pregunta 3 : Respuesta c ");
+
+        System.out.println(" RESPONDER : [" +examen.getRespuestas()+"]");
+        alumno1.deshacerRespuesta();
+
+        System.out.println("Después de deshacer: " + examen.getRespuestas());
+
+        alumno1.deshacerRespuesta();
+
+        System.out.println("Después de deshacer: " + examen.getRespuestas());
+
 
 //-----PATRON OBSERVER-----
-        System.out.println("\n--> PROBAMOS PATRON OBSERVER:");
-
-// Creamos curso real (entidad)
-        entidades.Curso cursoPOO = new entidades.Curso("Programación Orientada a Objetos");
-
-// Creamos Subject (Curso_o) asociado a ese curso
-        Observer.Curso_o cursoObservable = new Curso_o(cursoPOO);
-
-// Creamos alumnos de entidades
-        entidades.Alumno alumno1Ent = new entidades.Alumno(null, "Mario", "Gomez", 12345, 1001);
-        entidades.Alumno alumno2Ent = new entidades.Alumno(null, "Lucas", "Perez", 67890, 1002);
-
-// Creamos observadores que envuelven a los alumnos de entidades
-        Observer.Alumno obs1 = new Observer.Alumno(alumno1Ent);
-        Observer.Alumno obs2 = new Observer.Alumno(alumno2Ent);
-
-// Suscribimos los observadores (no los alumnos de entidades directamente)
-        cursoObservable.agregarObservador(obs1);
-        cursoObservable.agregarObservador(obs2);
-
-
-// Disparamos notificaciones
-        cursoObservable.notificar("Se cambió el horario a las 10:00 AM.");
-        cursoObservable.notificar("Nuevo aviso: examen parcial la próxima semana.");
+//        System.out.println("\n--> PROBAMOS PATRON OBSERVER:");
+//
+//// Creamos curso real (entidad)
+//        entidades.Curso cursoPOO = new entidades.Curso("Programación Orientada a Objetos");
+//
+//// Creamos Subject (Curso_o) asociado a ese curso
+//        Observer.Curso_o cursoObservable = new Curso_o(cursoPOO);
+//
+//// Creamos alumnos de entidades
+//        entidades.Alumno alumno1Ent = new entidades.Alumno(null, "Mario", "Gomez", 12345, 1001);
+//        entidades.Alumno alumno2Ent = new entidades.Alumno(null, "Lucas", "Perez", 67890, 1002);
+//
+//// Creamos observadores que envuelven a los alumnos de entidades
+//        Observer.Alumno obs1 = new Observer.Alumno(alumno1Ent);
+//        Observer.Alumno obs2 = new Observer.Alumno(alumno2Ent);
+//
+//// Suscribimos los observadores (no los alumnos de entidades directamente)
+//        cursoObservable.agregarObservador(obs1);
+//        cursoObservable.agregarObservador(obs2);
+//
+//
+//// Disparamos notificaciones
+//        cursoObservable.notificar("Se cambió el horario a las 10:00 AM.");
+//        cursoObservable.notificar("Nuevo aviso: examen parcial la próxima semana.");
+//
+//
 
 
 
@@ -132,7 +190,7 @@ public class Main {
         System.out.println("CAMBIO ESTADO");
         ins.cambiarEstado();
 
-        
+
 
 
         //-----PATRON TEMPLATE METHOD-----
