@@ -150,17 +150,17 @@ public class Main {
 
 
 //-----PATRON OBSERVER-----
-//        System.out.println("\n--> PROBAMOS PATRON OBSERVER:");
+        System.out.println("\n--> PROBAMOS PATRON OBSERVER:");
 //
-//// Creamos curso real (entidad)
-//        entidades.Curso cursoPOO = new entidades.Curso("Programación Orientada a Objetos");
+// Creamos curso real (entidad)
+        entidades.Curso cursoPOO = new entidades.Curso("Programación Orientada a Objetos");
 //
-//// Creamos Subject (Curso_o) asociado a ese curso
+// Creamos Subject (Curso_o) asociado a ese curso
 //        Observer.Curso_o cursoObservable = new Curso_o(cursoPOO);
 //
-//// Creamos alumnos de entidades
-//        entidades.Alumno alumno1Ent = new entidades.Alumno(null, "Mario", "Gomez", 12345, 1001);
-//        entidades.Alumno alumno2Ent = new entidades.Alumno(null, "Lucas", "Perez", 67890, 1002);
+// Creamos alumnos de entidades
+        entidades.Alumno alumno1Ent = new entidades.Alumno(null, "Mario", "Gomez", 12345, 1001);
+        entidades.Alumno alumno2Ent = new entidades.Alumno(null, "Lucas", "Perez", 67890, 1002);
 //
 //// Creamos observadores que envuelven a los alumnos de entidades
 //        Observer.Alumno obs1 = new Observer.Alumno(alumno1Ent);
@@ -204,7 +204,27 @@ public class Main {
         System.out.println("\nHaciendo reporte de Curso");
         rCurso.generarReporte();
 
-            //-----PATRON VISITOR-----
+
+//-----PATRON VISITOR-----
+        System.out.println("\n--> PROBAMOS PATRON VISITOR:");
+
+// Creamos entidad Alumno y Curso (usar nombres cualificados para evitar ambigüedad)
+        entidades.Alumno alumnoVis = new entidades.Alumno(null, "Ana", "Martinez", 33333, 2001);
+        entidades.Curso cursoVis = new entidades.Curso("Inteligencia Artificial");
+
+// Creamos Visitors concretos
+        Visitor.Visitor becaVisitor = new Visitor.BecaVisitor();
+        Visitor.Visitor reporteVisitor = new Visitor.ReporteVisitor();
+
+// Aplicamos Visitor sobre Alumno y Curso
+        alumnoVis.accept(becaVisitor);
+        cursoVis.accept(becaVisitor);
+
+        alumnoVis.accept(reporteVisitor);
+        cursoVis.accept(reporteVisitor);
+
+
+
 
     }
 }

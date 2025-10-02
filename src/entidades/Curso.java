@@ -11,4 +11,12 @@ public class Curso {
         return nombre;
     }
 
+
+
+    public void accept(Visitor.Visitor visitor) {
+        visitor.visit(this);
+    }
+
+
+
 }

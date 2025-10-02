@@ -154,5 +154,12 @@ public class Alumno extends Usuario {
     }
 
 
+
+    public void accept(Visitor.Visitor visitor) {
+        visitor.visit(this);
+    }
+
+
+
 }
 
